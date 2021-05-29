@@ -1,88 +1,45 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{ int t,countw=0,countl=0;
-  char p='Y';
-  while(p=='Y')
-  {
-  cout<<"ENTER NUMBER OF ROUNDS YOU WANT IN A MATCH\n";
-  cin>>t;
-  cout<<endl;
-  countw=0,countl=0;
-  while(t--)
-  {
-  cout<<"USE OPTIONS \n1.for rock\n2.for paper\n3.for scissor"<<endl<<endl;
-  int n;
-  cout<<"ENTER CHOICE \t";
-  cin>>n;
-  srand((unsigned) time(0));
-  int k=rand()%4+1;
-  cout<<endl;
-  {
-    cout<<"YOU CHOOSE:  ";
-    if(n==1)
-    {
-      cout<<"ROCK\t";
-    }
-    else if(n==2)
-      {
-        cout<<"PAPER\t";
-      }
-      else
-        {
-          cout<<"SCISSOR\t";
-        }
-        cout<<"||\t";
-        cout<<"CPU CHOOSE:  ";
-        if(k==1)
-          {
-            cout<<"ROCK\t";
-          }
-          else if(k==2)
-            {
-              cout<<"PAPER\t";
-            }
-            else
-              {
-                cout<<"SCISSOR\t";
-              }
-      cout<<endl<<"\n";
-    }
 
-            if(n==k)
-            {
-              cout<<"Match Round Draw\n"<<endl;
-            }
-  else if(n==1 && k==3 || n==2 && k==1 || n==3 && k==2)
-  {
-    cout<<endl<<"You won this round\n"<<endl;
-    countw++;
+string choices[3] = {"Rock", "Paper", "Scissors"}; //Win if playerChoice > systemChoice
+string outcomes[3] = {"Lose", "Win", "Draw"};
 
-  }
-  else
-  {
-    cout<<"You lost this round\n"<<endl;
-    countl++;
-  }
+int pcChoice() {
+  return (rand())%3;
 }
-  cout<<"\nYOU WON "<<countw<<" TIMES\n";
-  cout<<"WHILE YOU LOST "<<countl<<" TIMES\n";
-  if(countw>countl)
-  {
-    cout<<"\nSO THE WINNER OF THE MATCH IS YOU, CONGRATULATIONS!!!\n";
+
+void matchLogic(int playerChoiceNum) {
+
+  cout<<"You Chose : "<<choices[playerChoiceNum]<<endl;
+
+  int systemChoiceNum = pcChoice();
+  cout<<"PC Chose : "<<choices[systemChoiceNum]<<endl;
+
+  if(systemChoiceNum == playerChoiceNum) {
+    cout<<"You "<<outcomes[2]<<endl;
   }
-  else if(countw<countl)
-  {
-    cout<<"\nSORRY YOU LOST, TRY AGAIN OKAY :D \n";
-  }
-  else
-  {
-    cout<<"\nTHE MATCH WAS DRAW.\n";
-  }
-  cout<<"\nDO YOU WANT TO PLAY AGAIN?\n";
-  cin>>p;
-  p=toupper(p);
-  cout<<endl<<endl;
+  else if ((playerChoiceNum == 0 && systemChoiceNum == 2) || (playerChoiceNum > systemChoiceNum)) {
+    cout<<"You "<<outcomes[1]<<endl;
+  } else cout<<"You "<<outcomes[0]<<endl;
 }
-cout<<"WE ENJOYED PLAYING WITH YOU, PLAY WITH US AGAIN OKAY, SEE YOU UNTILL NEXT TIME :D\n";
+
+int main() {
+
+  //system("clear"); //linux
+  //system("cls"); //Windows
+
+  char playNext = 'y';
+  while(playNext == 'y') {
+    int playerChoiceNum = -1;
+    while(playerChoiceNum > 3 || playerChoiceNum <= 0) {
+      cout<<"Choices:\n1.Rock\n2.Paper\n3.Scissors\n\nChoice > ";
+      cin>>playerChoiceNum; // 1 2 3
+    }
+    matchLogic(--playerChoiceNum);
+    cout<<endl<<endl;
+    cout<<"Do you want to play another round? y/n > ";
+    cin>>playNext;
+    system("clear");
+  }
+  cout<<endl<<"WE ENJOYED PLAYING WITH YOU, PLAY WITH US AGAIN OKAY, SEE YOU UNTILL NEXT TIME :D"<<endl;
 }
